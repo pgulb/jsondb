@@ -1,0 +1,4 @@
+{
+    "JsonsPath": "/tmp/jsondb",
+    "ReceivingResponseChannelTimeout": 60
+}
