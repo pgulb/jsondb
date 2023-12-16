@@ -146,7 +146,9 @@ func handleRequest(req structures.Request,
 
 	case "get":
 		// get specific key in KeyFamily
-		jsoned, err := json.Marshal(jsons[req.KeyFamily][req.Key])
+		value := make(map[int]string)
+		value[0] = jsons[req.KeyFamily][req.Key]
+		jsoned, err := json.Marshal(value)
 		if err != nil {
 			outputMessage = append(outputMessage, err.Error())
 			return structures.Response{
@@ -158,9 +160,11 @@ func handleRequest(req structures.Request,
 
 	case "list":
 		// list KeyFamilys
-		keys := []string{}
+		keys := make(map[int]string)
+		counter := 0
 		for k := range jsons {
-			keys = append(keys, k)
+			keys[counter] = k
+			counter++
 		}
 		jsoned, err := json.Marshal(keys)
 		if err != nil {
@@ -174,9 +178,11 @@ func handleRequest(req structures.Request,
 
 	case "listkeys":
 		// lists keys in specific keyFamily
-		keys := []string{}
+		keys := make(map[int]string)
+		counter := 0
 		for k := range jsons[req.KeyFamily] {
-			keys = append(keys, k)
+			keys[counter] = k
+			counter++
 		}
 		jsoned, err := json.Marshal(keys)
 		if err != nil {
